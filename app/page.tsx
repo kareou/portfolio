@@ -1,25 +1,32 @@
 'use client'
 
 import Image from "next/image";
-import { useEffect } from "react";
+import { FormEvent, useEffect } from "react";
 import Card from "@/app/exp_card";
 import Pcard from "@/app/project_card";
 import { FaGithub } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
+import { FiSend } from "react-icons/fi";
 
 export default function Home() {
 
   useEffect(() => {
     document.addEventListener("mousemove", (e) => {
-      const x = e.pageX / window.innerWidth;
-      const y = e.pageY / window.innerHeight;
+      const x = e.pageX;
+      const y = e.pageY;
       const pointer = document.querySelector(".pointer-events-none");
       if (pointer) {
-        pointer.style.background = `radial-gradient(600px at ${x * 100}% ${y * 100}%, rgba(205, 154, 227, 0.15), transparent 80%)`;
+        pointer.style.background = `radial-gradient(600px at ${x}px ${y}px, rgba(205, 154, 227, 0.15), transparent 80%)`;
       }
     })
   }
     , [])
+  const send = async (e : FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log("send");
+    const paper = document.getElementById("paper");
+    paper?.classList.add("animation");
+  }
 
   return (
     <div className="relative">
@@ -36,28 +43,35 @@ export default function Home() {
               <nav className="">
                 <ul className="mt-16">
                   <li>
-                    <a className="group flex items-center py-3" href="about">
+                    <a className="group flex items-center py-3" href="#about">
                       <span className="bar h-px w-8 mr-4 transition-all group-hover:w-16 bg-[rgb(255,247,255,0.5)]  group-hover:bg-[#FFF7FF]"></span>
                       <span className="text text-[rgb(255,247,255,0.5)] group-hover:text-[#FFF7FF]">About</span>
                     </a>
                   </li>
                   <li>
-                    <a className="group flex items-center py-3" href="">
+                    <a className="group flex items-center py-3" href="#experience">
                       <span className="bar h-px w-8 mr-4 transition-all group-hover:w-16 bg-[rgb(255,247,255,0.5)]  group-hover:bg-[#FFF7FF]"></span>
                       <span className="text text-[rgb(255,247,255,0.5)] group-hover:text-[#FFF7FF]">Experience</span>
                     </a>
                   </li>
                   <li>
-                    <a className="group flex items-center py-3" href="">
+                    <a className="group flex items-center py-3" href="#projects">
                       <span className="bar h-px w-8 mr-4 transition-all group-hover:w-16 bg-[rgb(255,247,255,0.5)]  group-hover:bg-[#FFF7FF]"></span>
                       <span className="text text-[rgb(255,247,255,0.5)] group-hover:text-[#FFF7FF]">Projects</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a className="group flex items-center py-3" href="#contact">
+                      <span className="bar h-px w-8 mr-4 transition-all group-hover:w-16 bg-[rgb(255,247,255,0.5)]  group-hover:bg-[#FFF7FF]"></span>
+                      <span className="text text-[rgb(255,247,255,0.5)] group-hover:text-[#FFF7FF]">Contact</span>
                     </a>
                   </li>
                 </ul>
               </nav>
             </div>
             <div className=" text-[#CD9AE3] flex flex-wrap ml-1 mt-8 items-center text-xl">
-              <a href="" className="mr-4">
+              <a
+                href="" className="mr-4">
                 <FaGithub className="h-6 w-6" />
               </a>
               <a href="" className="mr-4">
@@ -72,9 +86,31 @@ export default function Home() {
             </section>
             <section id="experience" className="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24">
               <Card />
+              <Card />
+              <Card />
+              <Card />
             </section>
             <section id="projects">
               <Pcard />
+              <Pcard />
+              <Pcard />
+            </section>
+            <section id="contact">
+              <h1>Contact Me</h1>
+              <form onSubmit={send}>
+                <div className=" grid ">
+                  <label htmlFor="email">Your email</label>
+                  <input type="email" id="email" placeholder="name@example.com" className=" bg-gray-500/10 borde outline-none p-4 " />
+                </div>
+                <div className=" grid ">
+                  <label htmlFor="message">Your message</label>
+                  <textarea name="" id="message" className=" bg-gray-500/10 borde outline-none p-4 " placeholder="Your message..."></textarea>
+                </div>
+                <button type="submit" id="send" className=" shadow-lg py-2 px-8 w-32 h-12 rounded-full inline-flex items-center justify-center gap-2 bg-[#FFF7FF] text-black outline-none ">
+                  <span>send </span>
+                  <span id="paper"><FiSend /></span>
+                </button>
+              </form>
             </section>
           </main>
         </div>

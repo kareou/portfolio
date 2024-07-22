@@ -4,11 +4,11 @@
 
 :root {
   --background-color: #3C2944;
-  --hover-background: rgb(60, 41, 68,0.5);
+  --hover-background: rgb(60, 41, 68, 0.5);
   --text-color: #FFF7FF;
 }
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -25,16 +25,32 @@ body {
   }
 }
 
-.group{
+.group {
   transition: none;
 }
 
 
-.active .bar{
+.active .bar {
   width: 64px;
   background-color: var(--text-color);
 }
 
-.active .text{
+.active .text {
   color: var(--text-color);
+}
+
+
+.animation {
+  transform: translate(100px,-100px);
+  transition: all 0.3s linear;
+}
+
+@keyframes flyaway {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-200%, -200%);
+  }
 }
